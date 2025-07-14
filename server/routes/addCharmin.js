@@ -1,5 +1,5 @@
 import express from 'express'
-import {addCharacter,getAllPosts,connectCharacter,findChar,creatChatHistory,getMessagesByEmailAndCharacterId,addMessageToChat } from '../controllers/characterController.js'
+import {addCharacter,getAllPosts,connectCharacter,findChar,creatChatHistory,addMessageToChat } from '../controllers/characterController.js'
 import  authm  from '../middleware/authm.js';
 
 
@@ -10,7 +10,8 @@ router.get('/fetchchar',getAllPosts);
 router.get('/:id',findChar);
 router.post('/connect',authm,connectCharacter);
 router.post('/chathistory',authm,creatChatHistory);
-router.get('/messages', getMessagesByEmailAndCharacterId);
+// router.get('/messages', getMessagesByEmailAndCharacterId);
 router.post('/addmessage', addMessageToChat);
+
 
 export default router

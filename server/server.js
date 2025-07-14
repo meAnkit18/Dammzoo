@@ -4,6 +4,8 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import addCharmin from './routes/addCharmin.js'
+import chatRoutes from './routes/chatRoutes.js'
+
 
 
 dotenv.config()
@@ -15,14 +17,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.url}`);
-  next();
-});
-
 
 app.use('/api/auth', authRoutes)
 app.use('/api/add',addCharmin)
+app.use('/api/chatroutes',chatRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {

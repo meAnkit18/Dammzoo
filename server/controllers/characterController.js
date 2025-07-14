@@ -93,30 +93,6 @@ export const connectCharacter = async (req, res) => {
 
 
 
-export const getMessagesByEmailAndCharacterId = async (req, res) => {
-  const { email, characterId } = req.query;
-
-  if (!email || !characterId) {
-    return res.status(400).json({ error: "email and characterId are required" });
-  }
-
-  try {
-    const chatDoc = await ChatHistory.findOne({ email, characterId });
-
-    if (!chatDoc) {
-      // If no chat history exists yet, return an empty messages array
-      return res.status(200).json({ messages: [] });
-    }
-
-    // Return just the messages array
-    return res.status(200).json({ messages: chatDoc.messages });
-  } catch (err) {
-    console.error("Error fetching messages:", err);
-    return res.status(500).json({ error: "Server error while fetching messages" });
-  }
-};
-
-
 
 
 
@@ -143,6 +119,8 @@ export const addMessageToChat = async (req, res) => {
         characterId,
         messages: [message]
       });
+      console.log(chat);
+      
       await chat.save();
     }
 
