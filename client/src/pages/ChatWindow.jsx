@@ -8,6 +8,10 @@ function ChatWindow() {
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
 
+  const api = import.meta.env.VITE_GEMIMI_API
+  
+  
+
   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
@@ -60,7 +64,7 @@ useEffect(() => {
         params: { email, characterId }
       });
       setMessages(res.data.messages);
-      console.log("Fetched Messages:", res.data.messages);  // ✅ log response directly
+      // console.log("Fetched Messages:", res.data.messages);  // ✅ log response directly
     } catch (err) {
       console.error("Error fetching chat history:", err);
     }
@@ -92,7 +96,7 @@ useEffect(() => {
 
     try {
       const response = await axios.post(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDvtgBVF4bkgZJrMg7HDHCTHox_jOl-eLA",
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${api}`,
         { contents: formattedMessages },
         { headers: { "Content-Type": "application/json" } }
       );
@@ -112,6 +116,7 @@ useEffect(() => {
 
       setMessages((prev) => [...prev, newMsg, botReply]);
       setInput("");
+      
     } catch (error) {
       console.error("Gemini API error:", error);
       const errorReply = {
@@ -125,15 +130,27 @@ useEffect(() => {
   if (!product) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className="flex justify-center h-screen">
+
+    <div className='w-3xl'>
       <h1 className='text-3xl font-medium text-center bg-amber-400'>{product.name}</h1>
       <p>{product.bio}</p>
       <div className="chat-box">
-        {messages.slice().map((msg, idx) => (
-          <div key={idx} className={msg.sender === "user" ? "user-msg" : "bot-msg"}>
-            <strong>{msg.sender === "user" ? "You" : "Shradha"}:</strong> {msg.text}
-          </div>
+
+        {messages.slice(1).map((msg, idx) => (
+        <div
+          key={`${msg.sender}-${msg.text}-${idx}`}
+          // className={msg.sender === "user" ? "user-msg" : "bot-msg"}
+          className={
+            msg.sender === "user"
+              ? "bg-blue-200 text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
+              : "bg-gray-200 text-black p-2 rounded-lg w-fit max-w-xs ml-2"
+          }
+        >
+          <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong> {msg.text}
+        </div>
         ))}
+
       </div>
 
       <input
@@ -143,6 +160,7 @@ useEffect(() => {
         onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         placeholder="Type something..."
       />
+    </div>
     </div>
   );
 }

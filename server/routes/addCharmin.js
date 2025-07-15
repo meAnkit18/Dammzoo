@@ -5,7 +5,7 @@ import  authm  from '../middleware/authm.js';
 
 const router  = express.Router()
 
-router.post('/admin',authm,addCharacter);
+router.post('/admin',addCharacter);
 router.get('/fetchchar',getAllPosts);
 router.get('/:id',findChar);
 router.post('/connect',authm,connectCharacter);

@@ -16,7 +16,7 @@ export const getMessagesByEmailAndCharacterId = async (req, res) => {
     const chat = await ChatHistory.findOne({email,characterId});
 
 
-    const cleanedMessages = chat?.messages?.slice(1).map(({ sender, text }) => ({ sender, text })) || [];
+    const cleanedMessages = chat?.messages.map(({ sender, text }) => ({ sender, text })) || [];
 
     res.json({ messages: cleanedMessages });
 
