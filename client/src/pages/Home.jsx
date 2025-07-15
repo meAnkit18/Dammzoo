@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -7,6 +8,7 @@ function Home() {
   const [loading, setLoading] = useState(true); 
   const [isAuthenticated, setIsAuthenticated] = useState(true); 
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -73,6 +75,10 @@ const handleConnect = async (characterId) => {
 
     const email = userData.email;
 
+    // const objChat = {
+    //   sender: "modle",
+    //   text: productData.nature  
+    // };
     const objChat = {
       sender: "User",
       text: productData.nature  // ✅ This now works
@@ -86,8 +92,9 @@ const handleConnect = async (characterId) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-
+    
     alert("Connected successfully!");
+    navigate('/chat');
   } catch (error) {
     console.error("Connection failed:", error.response?.data || error.message);
     alert("Failed to connect.");
@@ -115,6 +122,9 @@ const handleConnect = async (characterId) => {
           }}
         >
           <h3>{post.name}</h3>
+          <img src={post.imgl} alt="photo" 
+          className="rounded-3xl w-100"
+          />
           <p>{post.imgl}</p>
           <p>{post.bio}</p>
           <p>{post.nature}</p>

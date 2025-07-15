@@ -16,7 +16,10 @@ function ChatCard({prop}) {
   if (!product) return <p>Loading...</p>;
 
   return (
-    <div>
+    <div className='flex'>
+      <img src={product.imgl} alt=""
+      className='w-8 rounded-4xl'
+      />
       <p>{product.name}</p>
     </div>
   )

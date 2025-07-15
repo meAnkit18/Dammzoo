@@ -4,6 +4,7 @@ import axios from "axios";
 import ChatCard from '../components/ChatCard';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import ChatWindow from './ChatWindow';
 
 
 function ChatPage() {
@@ -49,6 +50,7 @@ function ChatPage() {
           <div className='bg-amber-400 m-5 cursor-pointer p-3 text-center w-100 rounded-2xl' onClick={()=>{navigate(`/chat/${user[index]}`)}}>
            
           <ChatCard key={index} prop={user[index]}/>
+          
 
 
           </div>
