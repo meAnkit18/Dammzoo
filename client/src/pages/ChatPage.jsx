@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
 
 
+
 function ChatPage() {
 
    const [user, setUser] = useState([]);
@@ -41,18 +42,32 @@ function ChatPage() {
 
   if (!user) return <p>Loading user info...</p>;
   return (
-    <div>
-      <h1>Chat</h1>
+    <div 
+    className="flex flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 text-sm font-[Poppins]"
+    >
+      <div className='flex items-center'>
+        <div  onClick={()=>navigate('/home')}>
+          <svg
+              className="w-6 h-6 text-gray-700 cursor-pointer"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </div>
 
-     <div className=''>
+      <h1 className='text-center text-3xl font-medium my-1.5'>Message</h1>
+      </div>
+
+     <div className='w-full px-2 max-w-2xl '>
       {
-        user.map((prop,index)=>(
-          <div className='bg-amber-400 m-5 cursor-pointer p-3 text-center w-100 rounded-2xl' onClick={()=>{navigate(`/chat/${user[index]}`)}}>
+        user.reverse().map((prop,index)=>(
+          <div className=' bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] ml-auto m-0.5 cursor-pointer p-2 text-center w-full rounded-2xl ' onClick={()=>{navigate(`/chat/${user[index]}`)}}>
            
           <ChatCard key={index} prop={user[index]}/>
-          
-
-
           </div>
         ))
       }

@@ -7,6 +7,7 @@ function ChatWindow() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
+  const chatRef = useRef();
 
 
   
@@ -20,6 +21,11 @@ useEffect(() => {
 }, [messages]);
 
 
+
+
+useEffect(() => {
+  chatRef.current?.scrollIntoView({ behavior: 'smooth' });
+}, [messages]);
 
   
   
@@ -207,45 +213,71 @@ useEffect(() => {
 };
 
 
+
+
   if (!product) return <p>Loading...</p>;
 
   return (
     <div className="flex justify-center h-screen">
+        <div className="flex justify-center flex-1 overflow-y-auto">
 
-    <div className='w-3xl'>
-      <div className='bg-amber-400 flex'>
-        <img src={product.imgl} alt="photo"
-      className='w-8 rounded-4xl ml-10'
-      />
-      <h1 className='text-3xl font-medium text-center ml-10 p-1'>{product.name}</h1>
-      </div>
-      <p>{product.bio}</p>
-      <div className="chat-box">
+        <div className=' w-3xl'>
+          <div className='bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] flex items-center rounded-b-sm
+          '>
+            <div className="relative m-2 ml-8">
+                <img className="h-12 w-12 rounded-full"
+                    src={product.imgl}
+                    alt="userImage" />
+                <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
+            </div>
+            <div className='ml-10 p-1'>
+            <h1 className='text-3xl font-semibold text-center '>{product.name}</h1>
+            <p>{product.bio}</p>
 
-        {messages.slice(1).map((msg, idx) => (
-        <div
-          key={`${msg.sender}-${msg.text}-${idx}`}
-          // className={msg.sender === "user" ? "user-msg" : "bot-msg"}
-          className={
-            msg.sender === "user"
-              ? "bg-blue-200 text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
-              : "bg-gray-200 text-black p-2 rounded-lg w-fit max-w-xs ml-2"
-          }
-        >
-          <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong> {msg.text}
+            </div>
+          </div>
+
+
+
+          <div className="chat-box overflow-y-auto max-h-[calc(100vh-6rem)] pb-20">
+
+            {messages.slice(1).map((msg, idx) => (
+            <div
+              key={`${msg.sender}-${msg.text}-${idx}`}
+              // className={msg.sender === "user" ? "user-msg" : "bot-msg"}
+              className={
+                msg.sender === "user"
+                  ? "bg-blue-200 text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
+                  : "bg-gray-200 text-black p-2 rounded-lg w-fit max-w-xs ml-2"
+              }
+            >
+              <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong> {msg.text}
+            </div>
+            ))}
+            <div ref={chatRef} />
+
+          </div>
+
         </div>
-        ))}
-
-      </div>
-
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-        placeholder="Type something..."
-      />
-    </div>
+       <div className="flex fixed bottom-1 items-center h-12 w-full max-w-3xl text-sm text-gray-500 bg-white border border-gray-500/30 rounded">
+            <button type="button" className="h-full px-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+                </svg>
+            </button>
+            <input className="outline-none bg-transparent h-full w-full" type="text" placeholder="Message..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+            />
+            <button type="button" className="h-full w-12">
+                <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.375 22.5v-18l21.375 9zm2.25-3.375L18.956 13.5 5.625 7.875v3.938l6.75 1.687-6.75 1.688zm0 0V7.875z" fill="currentColor" fillOpacity="1"/>
+                </svg>
+            </button>
+        </div>
+        </div>
    
     </div>
   );

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
+
 function Home() {
   const [posts, setPosts] = useState([]);
   const [userd, setUserd] = useState([]);
@@ -96,6 +98,8 @@ const handleConnect = async (characterId) => {
     alert("Connected successfully!");
     navigate('/chat');
   } catch (error) {
+    console.error("Connection failed:", error);
+  alert("Failed to connect: " + (error.response?.data?.error || error.message));
     console.error("Connection failed:", error.response?.data || error.message);
     alert("Failed to connect.");
   }
