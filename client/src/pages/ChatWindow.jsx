@@ -95,61 +95,6 @@ useEffect(() => {
 }, [email, characterId]);
 
 
-
-
-
-  // const sendMessage = async () => {
-  //   if (!input.trim()) return;
-
-  //   const newMsg = { sender: "user", text: input };
-
-  //   // Save user message to DB
-  //   await axios.post("http://localhost:5000/api/add/addmessage", {
-  //     email,
-  //     characterId,
-  //     message: newMsg
-  //   });
-
-  //   const formattedMessages = [...messages, newMsg].map((msg) => ({
-  //     role: msg.sender === "user" ? "user" : "model",
-  //     parts: [{ text: msg.text }],
-  //   }));
-
-  //   try {
-  //     const response = await axios.post(
-  //       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${api}`,
-  //       { contents: formattedMessages },
-  //       { headers: { "Content-Type": "application/json" } }
-  //     );
-
-  //     const botText =
-  //       response.data.candidates?.[0]?.content?.parts?.[0]?.text ||
-  //       "Sorry 😥 I couldn’t think of a reply.";
-
-  //     const botReply = { sender: `${product.name}`, text: botText };
-
-  //     // Save bot reply to DB
-  //     await axios.post("http://localhost:5000/api/add/addmessage", {
-  //       email,
-  //       characterId,
-  //       message: botReply
-  //     });
-
-  //     setMessages((prev) => [...prev, newMsg, botReply]);
-  //     setInput("");
-      
-  //   } catch (error) {
-  //     console.error("Gemini API error:", error);
-  //     const errorReply = {
-  //       sender: `${product.name}`,
-  //       text: "Oops baby 😓 Something went wrong with my brain (API).",
-  //     };
-  //     setMessages((prev) => [...prev, newMsg, errorReply]);
-  //   }
-  // };
-
-
-
   const sendMessage = async () => {
   if (!input.trim()) return;
 
@@ -251,7 +196,7 @@ useEffect(() => {
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
             </div>
             <div className='ml-10 p-1'>
-            <h1 className='text-3xl font-semibold text-center '>{product.name}</h1>
+            <h1 className='text-base font-semibold text-center '>{product.name}</h1>
             <p className='text-gray-500'>{product.bio}</p>
 
             </div>

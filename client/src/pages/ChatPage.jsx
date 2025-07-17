@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
 import { motion } from 'framer-motion';
+import MainName from '../components/MainName';
 
 
 
@@ -43,8 +44,10 @@ function ChatPage() {
 
   if (!user) return <p>Loading user info...</p>;
   return (
+    <>
+    <MainName/>
     <div 
-    className="flex flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 text-sm font-[Poppins]"
+    className="flex mt-15 flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 text-sm font-[Poppins]"
     >
       <div className='flex items-center'>
         <div  onClick={()=>navigate('/home')}>
@@ -60,7 +63,7 @@ function ChatPage() {
             </svg>
         </div>
 
-      <h1 className='text-center text-3xl font-medium my-1.5'>Message</h1>
+      <h1 className='text-center text-1xl font-medium my-1.5'>Message</h1>
       </div>
 
      <div className='w-full px-2 max-w-2xl '>
@@ -81,6 +84,7 @@ function ChatPage() {
       }
     </div>
     </div>
+    </>
   )
 }
 
