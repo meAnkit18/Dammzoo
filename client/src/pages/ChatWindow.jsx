@@ -2,12 +2,15 @@
 import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [user, setUser] = useState(null);
   const chatRef = useRef();
+  const navigate = useNavigate();
 
 
   
@@ -219,11 +222,28 @@ useEffect(() => {
 
   return (
     <div className="flex justify-center h-screen">
-        <div className="flex justify-center flex-1 overflow-y-auto">
-
+        <div className="flex justify-center flex-1 overflow-y-auto bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins]">
+         
         <div className=' w-3xl'>
-          <div className='bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] flex items-center rounded-b-sm
+          <motion.div 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          
+          className='bg-gradient-to-r from-[#dbf3fd] to-[#fdddf9] flex items-center rounded-b-sm
           '>
+            <div className='ml-3'  onClick={()=>navigate('/chat')}>
+          <svg
+              className="w-6 h-6 text-gray-700 cursor-pointer"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+        </div>
             <div className="relative m-2 ml-8">
                 <img className="h-12 w-12 rounded-full"
                     src={product.imgl}
@@ -232,10 +252,10 @@ useEffect(() => {
             </div>
             <div className='ml-10 p-1'>
             <h1 className='text-3xl font-semibold text-center '>{product.name}</h1>
-            <p>{product.bio}</p>
+            <p className='text-gray-500'>{product.bio}</p>
 
             </div>
-          </div>
+          </motion.div>
 
 
 
@@ -247,8 +267,8 @@ useEffect(() => {
               // className={msg.sender === "user" ? "user-msg" : "bot-msg"}
               className={
                 msg.sender === "user"
-                  ? "bg-blue-200 text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
-                  : "bg-gray-200 text-black p-2 rounded-lg w-fit max-w-xs ml-2"
+                  ? "bg-gradient-to-r from-[#dbf3fd] to-[#ffffff] text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
+                  : "bg-gradient-to-r from-[#fde7fa] to-[#ffffff] text-black p-2 rounded-lg w-fit max-w-xs ml-2"
               }
             >
               <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong> {msg.text}
@@ -271,7 +291,7 @@ useEffect(() => {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
-            <button type="button" className="h-full w-12">
+            <button type="button" className="h-full w-12" onClick={()=> sendMessage()}>
                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3.375 22.5v-18l21.375 9zm2.25-3.375L18.956 13.5 5.625 7.875v3.938l6.75 1.687-6.75 1.688zm0 0V7.875z" fill="currentColor" fillOpacity="1"/>
                 </svg>

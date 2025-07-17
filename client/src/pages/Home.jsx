@@ -95,7 +95,7 @@ const handleConnect = async (characterId) => {
       }
     );
     
-    alert("Connected successfully!");
+    // alert("Connected successfully!");
     navigate('/chat');
   } catch (error) {
     console.error("Connection failed:", error);

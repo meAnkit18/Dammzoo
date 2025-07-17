@@ -5,6 +5,7 @@ import ChatCard from '../components/ChatCard';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ChatWindow from './ChatWindow';
+import { motion } from 'framer-motion';
 
 
 
@@ -65,10 +66,17 @@ function ChatPage() {
      <div className='w-full px-2 max-w-2xl '>
       {
         user.reverse().map((prop,index)=>(
-          <div className=' bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] ml-auto m-0.5 cursor-pointer p-2 text-center w-full rounded-2xl ' onClick={()=>{navigate(`/chat/${user[index]}`)}}>
+          <motion.div
+          
+          initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2,type: "spring", stiffness: 300 }}
+
+       whileHover={{ scale: 1.01 }}
+          className=' bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] ml-auto m-0.5 cursor-pointer p-2 text-center w-full rounded-2xl ' onClick={()=>{navigate(`/chat/${user[index]}`)}}>
            
           <ChatCard key={index} prop={user[index]}/>
-          </div>
+          </motion.div>
         ))
       }
     </div>

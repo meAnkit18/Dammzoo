@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import Gallery from '../components/Gallery'
 import NavBar from '../components/NavBar'
 import FAQ from '../components/FAQ '
+import Testimonal from '../components/Testimonal'
 
 
 
@@ -16,7 +17,8 @@ function LandingPage() {
     <NavBar/>
     <HeroSection/>
     <br />
-    <Gallery/>
+    {/* <Gallery/> */}
+    <Testimonal/>
     <br />
     <FAQ/>
     <CallToAction/>

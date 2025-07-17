@@ -1,8 +1,12 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 function CallToAction() {
   return (
-    <div className="max-w-5xl mx-2 md:mx-auto p-px rounded-2xl bg-gradient-to-r from-purple-600/20 to-blue-500/30">
+    <motion.div 
+     whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300 }}
+    className="max-w-5xl mx-2 md:mx-auto p-px rounded-2xl bg-gradient-to-r from-purple-600/20 to-blue-500/30">
             <div className="flex flex-col items-center justify-center text-center py-12 md:py-16 rounded-[15px] bg-gradient-to-r from-[#f9f7ff] to-[#fff7fe]">  
                 <div className="flex items-center justify-center bg-white px-3 py-1.5 shadow gap-1 rounded-full text-xs">
                     <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +25,7 @@ function CallToAction() {
                     Get Started Today
                 </button>
             </div>
-        </div>
+        </motion.div>
   )
 }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 
 
 const HeroSection = () => {
@@ -18,7 +19,12 @@ const HeroSection = () => {
 
   return (
     
-    <section 
+    <motion.section 
+
+     initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2 }}
+
     className="flex flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins]">
       {/* <nav className="flex items-center justify-between p-4 border-b border-slate-200 md:px-16 lg:px-24 xl:px-32 w-full">
         <a href="https://prebuiltui.com">
@@ -63,9 +69,13 @@ const HeroSection = () => {
         <p className="-translate-x-2">Join community of 1m+ founders</p>
       </div>
 
-      <h1 className="text-6xl md:text-6xl text-center font-medium max-w-3xl mt-5 bg-gradient-to-r from-black to-[#748298] text-transparent bg-clip-text">
+      <motion.h1
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.5 }}
+      className="text-6xl md:text-6xl text-center font-medium max-w-3xl mt-5 bg-gradient-to-r from-black to-[#748298] text-transparent bg-clip-text">
         Build. Launch. Scale. Without the complexity.
-      </h1>
+      </motion.h1>
       <p className="text-slate-600 text-base md:text-base max-md:px-2 text-center max-w-xl mt-3">
         A high-performance, serverless Postgres database that helps you ship fast and scale without limits.
       </p>
@@ -97,7 +107,7 @@ const HeroSection = () => {
         </div>
         <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-[#efe9f4] to-transparent"></div>
       </div> */}
-    </section>
+    </motion.section>
   );
 };
 
