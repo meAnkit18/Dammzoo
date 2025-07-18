@@ -35,7 +35,7 @@ function NavBar() {
         <a class="hover:text-indigo-600" href="#faqs">
             FAQs
         </a>
-        <a class="hover:text-indigo-600" href={`${frontendURL}/about`}>
+        <a class="hover:text-indigo-600" href={`${frontendURL}about`}>
             About
         </a>
         <a class="hover:text-indigo-600" href="disclaimer">
