@@ -27,16 +27,18 @@ function Footer() {
                 <a href="services" className="font-medium text-gray-500 hover:text-black transition-all">
                     Services
                 </a>
-                <a href="contact" className="font-medium text-gray-500 hover:text-black transition-all">
-                    Contact
-                </a>
-                <a href="disclaimer" className="font-medium text-gray-500 hover:text-black transition-all">
-                    Disclaimer
-                </a>
                 {/* <a href="dmca" className="font-medium text-gray-500 hover:text-black transition-all">
                     DMCA
-                </a> */}
+                    </a> */}
             </div>
+                    <div className='flex items-center gap-8'>
+                    <a href="contact" className="font-medium text-gray-500 hover:text-black transition-all">
+                        Contact
+                    </a>
+                    <a href="disclaimer" className="font-medium text-gray-500 hover:text-black transition-all">
+                        Disclaimer
+                    </a>
+                    </div>
             <div className="flex items-center gap-4 mt-8 text-slate-900">
                 {/* <a href="#" className="hover:-translate-y-0.5 transition-all duration-300">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
