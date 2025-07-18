@@ -4,6 +4,7 @@ import axios from "axios";
 
 function AccoutDetails() {
     const [user, setUser] = useState(null);
+    const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -16,7 +17,7 @@ function AccoutDetails() {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/account", {
+        const res = await axios.get(`${backendURL}/api/auth/account`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

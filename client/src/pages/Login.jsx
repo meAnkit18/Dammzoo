@@ -9,10 +9,11 @@ const Login = () => {
   const [otp, setOtp] = useState('')
   const [step, setStep] = useState(1)
   const navigate = useNavigate()
+  const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   const sendOtp = async () => {
     try {
-      await axios.post('http://localhost:5000/api/auth/send-otp', { email })
+      await axios.post(`${backendURL}/api/auth/send-otp`, { email })
       setStep(2)
     } catch (error) {
       alert("Failed to send OTP")
@@ -22,7 +23,7 @@ const Login = () => {
 
   const verifyOtp = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/verify-otp', {email, otp })
+      const res = await axios.post(`${backendURL}/api/auth/verify-otp`, {email, otp })
       const token = res.data.token;
       localStorage.setItem("token", token);
       
@@ -37,7 +38,7 @@ const Login = () => {
 
   return (
     <div
-    className="flex flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins]"
+    className=" flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins]"
     >
       <NavBar/>
       <div className="min-h-screen flex flex-col items-center justify-center">
@@ -65,19 +66,6 @@ const Login = () => {
             
           ) : (
             <>
-              {/* <h2 className="text-xl mb-4 font-bold text-center">Enter OTP</h2>
-              <input
-                className="border p-2 mb-4 w-full rounded"
-                placeholder="Enter the OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-              />
-              <button
-              className='bg-amber-950'
-                onClick={verifyOtp}
-              >
-                Verify OTP
-              </button> */}
 
               <div className="bg-white text-gray-500 max-w-96 mx-4 md:p-6 p-4 text-left text-sm rounded shadow-[0px_0px_10px_0px] shadow-black/10">
             <h2 className="text-2xl font-semibold mb-6 text-center text-gray-800">Email Verify OTP</h2>

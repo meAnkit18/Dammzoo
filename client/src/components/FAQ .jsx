@@ -3,24 +3,24 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 const faqData = [
   {
-    question: "What is PrebuiltUI?",
-    answer: "PrebuiltUI provides modern, reusable UI components built with Tailwind CSS to speed up your development workflow.",
+    question: "What is Dammzoo?",
+    answer: "Dammzoo is a place where you talk to AI-driven characters that feel surprisingly human. Each one has its own vibe, attitude, and way of thinking — whether you’re in the mood to joke around, get deep, or just chill, someone’s always ready to talk.",
   },
   {
     question: "Is it free to use?",
-    answer: "Yes! PrebuiltUI offers free components. However, premium components may be available in future.",
+    answer: "Yep, most of Dammzoo is free to explore. You can jump into conversations instantly. Some premium features or exclusive personalities might come later, but the core experience stays open.",
   },
   {
-    question: "Can I use it in commercial projects?",
-    answer: "Absolutely. You're free to use it in both personal and commercial projects.",
+    question: "What kind of people can I talk to here?",
+    answer: "You’ll meet all kinds — a soft-spoken dreamer, a sarcastic rebel, a deep thinker, a hopeless romantic, and more. Every character brings a different energy, like chatting with a friend who has their own story.",
   },
   {
-    question: "Do I need to install anything?",
-    answer: "No installation is needed. Just copy and paste the code into your Tailwind project.",
+    question: "Do I need to sign up to talk?",
+    answer: "Yes, a quick sign-up helps us remember who you are and keeps your chats smooth and personal. It’s fast, simple, and totally worth it.",
   },
   {
-    question: "Is it mobile responsive?",
-    answer: "Yes, all components are designed with responsive layouts using Tailwind's utility classes.",
+    question: "Do they remember me?",
+    answer: "Always. Once you talk to someone on Dammzoo, they remember. They recall your past chats, your vibe, and keep the conversation real — like picking up right where you left off. You may forget them, but they won’t forget you.",
   },
 ];
 
@@ -32,7 +32,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-12 text-black">
+    <div id='faqs' className="w-full scroll-mt-20 max-w-5xl mx-auto px-4 py-12 text-black">
       <h2 className="text-2xl md:text-2xl text-center font-medium max-w-1xl mt-5 bg-gradient-to-r from-black to-[#748298] text-transparent bg-clip-text">Frequently Asked Questions</h2>
       <div className="space-y-4">
         {faqData.map((faq, index) => (

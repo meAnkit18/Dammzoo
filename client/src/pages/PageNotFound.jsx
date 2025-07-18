@@ -8,7 +8,7 @@ function PageNotFound() {
     className="flex flex-col items-center justify-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins]"
     
     >
-        <NavBar/>
+        {/* <NavBar/> */}
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-500 bg-clip-text">
                 404 Not Found
             </h1>

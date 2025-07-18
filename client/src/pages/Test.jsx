@@ -1,146 +1,57 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
 
 function Test() {
-
-   const [posts, setPosts] = useState([]);
-  const [userd, setUserd] = useState([]);
-  const [loading, setLoading] = useState(true); 
-  const [isAuthenticated, setIsAuthenticated] = useState(true); 
-  const [product, setProduct] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");  // ✅ search term state
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      return;
-    }
-
-    const fetchPosts = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/add/fetchchar", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setPosts(res.data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-        setIsAuthenticated(false);
-      }
-      setLoading(false);
-    };
-
-    fetchPosts();
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/login";
-  };
-
-  if (loading) return <p>Loading...</p>;
-
-  if (!isAuthenticated) return <p>You are not logged in.</p>;
-
-  const handleConnect = async (characterId) => {
-    const token = localStorage.getItem("token");
-
-    try {
-      await axios.post(
-        "http://localhost:5000/api/add/connect",
-        { characterId },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      const spRes = await axios.get(`http://localhost:5000/api/add/${characterId}`);
-      const productData = spRes.data;
-      setProduct(productData);
-
-      const userDeti = await axios.get("http://localhost:5000/api/auth/account", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const userData = userDeti.data;
-      setUserd(userData);
-
-      const email = userData.email;
-
-      const objChat = {
-        sender: "User",
-        text: productData.nature
-      };
-
-      await axios.post(
-        "http://localhost:5000/api/add/chathistory",
-        { email, characterId, objChat },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      navigate('/chat');
-    } catch (error) {
-      console.error("Connection failed:", error);
-      alert("Failed to connect: " + (error.response?.data?.error || error.message));
-    }
-  };
   return (
-   <div className="p-4">
-      <h1 className="text-3xl font-bold mb-4">All Characters</h1>
+    <div className="flex flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 pb-16 text-sm font-[Poppins] px-4 md:px-12 py-12 space-y-12">
 
-      <input
-        type="text"
-        placeholder="Search by name or bio..."
-        className="border p-2 rounded-lg mb-6 w-full max-w-md"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+  {/* About */}
+  <section className="max-w-4xl w-full">
+    <h2 className="text-2xl font-semibold mb-4">About Dammzoo</h2>
+    <p>
+      Welcome to <strong>Dammzoo</strong> — where conversations aren't just smart, they're *human*. We created Dammzoo so you can talk to unique AI-powered personalities that feel alive, weird, relatable, or just plain wild. Whether you're here to laugh, vent, think, or escape — someone's always listening at Dammzoo.
+    </p>
+    <p className="mt-2">Founded by <strong>Ankit Kumar</strong>, Dammzoo blends tech, emotion, and entertainment in a way chat has never felt before.</p>
+  </section>
 
-      <button
-        className="bg-red-500 p-2 rounded-2xl mb-6"
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+  {/* Contact */}
+  <section className="max-w-4xl w-full">
+    <h2 className="text-2xl font-semibold mb-4">Contact</h2>
+    <p>Got questions, feedback, or collab ideas? Let’s talk.</p>
+    <ul className="list-disc list-inside mt-2 space-y-1">
+      <li><strong>Email:</strong> <a href="mailto:ankit1842kumar@gmail.com" className="text-blue-600 underline">ankit1842kumar@gmail.com</a></li>
+      <li><strong>X (Twitter):</strong> <a href="https://x.com/meAnkit18" target="_blank" className="text-blue-600 underline">@meAnkit18</a></li>
+      <li><strong>GitHub (Bug Reports):</strong> <a href="https://github.com/meAnkit18/uropposite" target="_blank" className="text-blue-600 underline">uropposite</a></li>
+    </ul>
+  </section>
 
-      {posts
-        .filter((post) =>
-          post.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.bio.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-        .map((post) => (
-          <div
-            key={post._id}
-            className="bg-amber-400"
-            style={{
-              border: "1px solid black",
-              margin: "10px",
-              padding: "10px",
-            }}
-          >
-            <h3>{post.name}</h3>
-            <img
-              src={post.imgl}
-              alt="photo"
-              className="rounded-3xl w-100"
-            />
-            <p>{post.imgl}</p>
-            <p>{post.bio}</p>
-            <p>{post.nature}</p>
-            <button
-              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow mt-2"
-              onClick={() => handleConnect(post._id)}
-            >
-              Connect
-            </button>
-          </div>
-        ))}
-    </div>
+  {/* DMCA */}
+  <section className="max-w-4xl w-full">
+    <h2 className="text-2xl font-semibold mb-4">DMCA Policy</h2>
+    <p>
+      Dammzoo respects intellectual property rights. If you believe content on this site infringes your copyright, send a proper DMCA takedown notice to:
+    </p>
+    <ul className="list-disc list-inside mt-2 space-y-1">
+      <li><strong>Email:</strong> <a href="mailto:ankit1842kumar@gmail.com" className="text-blue-600 underline">ankit1842kumar@gmail.com</a></li>
+      <li>Include your name, contact, content URL, proof of ownership, and a sworn statement under penalty of perjury.</li>
+    </ul>
+    <p className="mt-2">We'll act quickly — just be legit.</p>
+  </section>
+
+  {/* Services */}
+  <section className="max-w-4xl w-full">
+    <h2 className="text-2xl font-semibold mb-4">Services</h2>
+    <ul className="list-disc list-inside space-y-2">
+      <li>💬 Chat with unique AI characters that feel human</li>
+      <li>🧠 Deep convos, funny banter, emotional support — whatever you need</li>
+      <li>🎭 Personalities with memory — they remember your chats</li>
+      <li>🔒 Save your history (when signed in)</li>
+      <li>🎙️ Coming soon: voice chat, custom characters & more</li>
+    </ul>
+    <p className="mt-2">Dammzoo is always growing. This is just the beginning.</p>
+  </section>
+
+</div>
+
   )
 }
 

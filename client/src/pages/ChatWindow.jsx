@@ -16,6 +16,7 @@ function ChatWindow() {
   
 
   const api = import.meta.env.VITE_GEMIMI_API
+  const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   const messagesRef = useRef([]);
 
@@ -44,7 +45,7 @@ useEffect(() => {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/account", {
+        const res = await axios.get(`${backendURL}/api/auth/account`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -71,7 +72,7 @@ useEffect(() => {
 
   // Fetch character data
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/add/${characterId}`)
+    axios.get(`${backendURL}/api/add/${characterId}`)
       .then(res => setProduct(res.data))
       .catch(err => console.error(err));
   }, [characterId]);
@@ -81,7 +82,7 @@ useEffect(() => {
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/chatroutes/getallchath", {
+      const res = await axios.get(`${backendURL}/api/chatroutes/getallchath`, {
         params: { email, characterId }
       });
       setMessages(res.data.messages);
@@ -95,33 +96,111 @@ useEffect(() => {
 }, [email, characterId]);
 
 
-  const sendMessage = async () => {
+//   const sendMessage = async () => {
+//   if (!input.trim()) return;
+
+//   const newMsg = { sender: "user", text: input };
+
+//   // Save user message to DB
+//   await axios.post("http://localhost:5000/api/add/addmessage", {
+//     email,
+//     characterId,
+//     message: newMsg
+//   });
+
+//   const formattedMessages = [...messagesRef.current, newMsg].map((msg) => ({
+//     role: msg.sender === "user" ? "user" : "model",
+//     parts: [{ text: msg.text }],
+//   }));
+
+//   try {
+//     console.log("Sending to Gemini:", formattedMessages);
+
+//     const response = await axios.post(
+//       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${api}`,
+//       { contents: formattedMessages },
+//       { headers: { "Content-Type": "application/json" } }
+//     );
+//     console.log("Gemini response:", response.data);
+
+
+//     const botText =
+//       response.data.candidates?.[0]?.content?.parts?.[0]?.text ||
+//       "Sorry 😥 I couldn’t think of a reply.";
+
+//     const botReply = { sender: `${product.name}`, text: botText };
+
+//     // Save bot reply to DB
+//     await axios.post("http://localhost:5000/api/add/addmessage", {
+//       email,
+//       characterId,
+//       message: botReply
+//     });
+
+//     setMessages((prev) => {
+//       const updated = [...prev, newMsg, botReply];
+//       messagesRef.current = updated; // Sync ref
+//       return updated;
+//     });
+//     setInput("");
+
+//   } catch (error) {
+
+//     console.error("Gemini API failed with:", error?.response?.data || error.message || error);
+
+//     console.error("Gemini API error:", error);
+//     const errorReply = {
+//       sender: `${product.name}`,
+//       text: "Oops baby 😓 Something went wrong with my brain (API).",
+//     };
+//     setMessages((prev) => {
+//       const updated = [...prev, newMsg, errorReply];
+//       messagesRef.current = updated;
+//       return updated;
+//     });
+//   }
+// };
+
+
+
+
+const sendMessage = async () => {
   if (!input.trim()) return;
 
   const newMsg = { sender: "user", text: input };
+  const typingMsg = { sender: `${product.name}`, text: "Typing...", isTyping: true };
 
-  // Save user message to DB
-  await axios.post("http://localhost:5000/api/add/addmessage", {
-    email,
-    characterId,
-    message: newMsg
-  });
+  // 1. Show user message immediately
+    setMessages((prev) => {
+      const updated = [...prev, newMsg, typingMsg];
+      messagesRef.current = updated;
+      return updated;
+    });
 
-  const formattedMessages = [...messagesRef.current, newMsg].map((msg) => ({
+  // 2. Save user message to DB
+  try {
+    await axios.post(`${backendURL}/api/add/addmessage`, {
+      email,
+      characterId,
+      message: newMsg,
+    });
+  } catch (err) {
+    console.error("Failed to save user message:", err);
+    // optionally show retry
+  }
+
+  // 3. Send to Gemini
+  const formattedMessages = [...messagesRef.current.filter(m => !m.isTyping), newMsg].map((msg) => ({
     role: msg.sender === "user" ? "user" : "model",
     parts: [{ text: msg.text }],
   }));
 
   try {
-    console.log("Sending to Gemini:", formattedMessages);
-
     const response = await axios.post(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${api}`,
       { contents: formattedMessages },
       { headers: { "Content-Type": "application/json" } }
     );
-    console.log("Gemini response:", response.data);
-
 
     const botText =
       response.data.candidates?.[0]?.content?.parts?.[0]?.text ||
@@ -129,37 +208,37 @@ useEffect(() => {
 
     const botReply = { sender: `${product.name}`, text: botText };
 
-    // Save bot reply to DB
-    await axios.post("http://localhost:5000/api/add/addmessage", {
+    // 4. Save bot reply to DB
+    await axios.post(`${backendURL}/api/add/addmessage`, {
       email,
       characterId,
-      message: botReply
+      message: botReply,
     });
 
+    // 5. Replace "Typing..." with real reply
     setMessages((prev) => {
-      const updated = [...prev, newMsg, botReply];
-      messagesRef.current = updated; // Sync ref
-      return updated;
-    });
-    setInput("");
-
-  } catch (error) {
-
-    console.error("Gemini API failed with:", error?.response?.data || error.message || error);
-
-    console.error("Gemini API error:", error);
-    const errorReply = {
-      sender: `${product.name}`,
-      text: "Oops baby 😓 Something went wrong with my brain (API).",
-    };
-    setMessages((prev) => {
-      const updated = [...prev, newMsg, errorReply];
+      const filtered = prev.filter((msg) => !msg.isTyping);
+      const updated = [...filtered, botReply];
       messagesRef.current = updated;
       return updated;
     });
+
+  } catch (error) {
+    console.error("Gemini API error:", error);
+    const errorReply = {
+      sender: `${product.name}`,
+      text: "Oops 😓 Something went wrong while thinking.",
+    };
+    setMessages((prev) => {
+      const filtered = prev.filter((msg) => !msg.isTyping);
+      const updated = [...filtered, errorReply];
+      messagesRef.current = updated;
+      return updated;
+    });
+  } finally {
+    setInput("");
   }
 };
-
 
 
 
@@ -192,7 +271,12 @@ useEffect(() => {
             <div className="relative m-2 ml-8">
                 <img className="h-12 w-12 rounded-full"
                     src={product.imgl}
-                    alt="userImage" />
+                    alt="userImage"
+                    onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loop in case fallback also fails
+                        e.target.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWHVaY-wRjLvQDY-FhyphenhyphenPKYH9Gb1Kz9nUz2Bu4zeEpRXDCfjBE7jyANtu_ZOxpzZD6tMoG3H62XDO5IrYZhPqBn3E0nnuD6IRvA6AcdNHHNsN3h_A6FsU0s4D7XSi8NzxIi50CHKrk_p4xVT1K4fgyDhIp1b9RycsVAd7-KrmbzXCzdcA7D2CDf3eocDwQ/s512/profile-user.png'; // Your fallback image path
+                    }}
+                    />
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
             </div>
             <div className='ml-10 p-1'>
@@ -205,8 +289,8 @@ useEffect(() => {
 
 
           <div className="chat-box overflow-y-auto max-h-[calc(100vh-6rem)] pb-20">
-
-            {messages.slice(1).map((msg, idx) => (
+                  <p className='text-center mt-2 font-normal text-black/50'>You’re one message away...Type something</p>
+            {/* {messages.slice(1).map((msg, idx) => (
             <div
               key={`${msg.sender}-${msg.text}-${idx}`}
               // className={msg.sender === "user" ? "user-msg" : "bot-msg"}
@@ -218,7 +302,29 @@ useEffect(() => {
             >
               <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong> {msg.text}
             </div>
+            ))} */}
+
+
+
+
+                        {messages.slice(1).map((msg, idx) => (
+              <div
+                key={`${msg.sender}-${msg.text}-${idx}`}
+                className={
+                  msg.sender === "user"
+                    ? "bg-gradient-to-r from-[#dbf3fd] to-[#ffffff] text-black p-2 rounded-lg ml-auto w-fit max-w-xs m-2"
+                    : "bg-gradient-to-r from-[#fde7fa] to-[#ffffff] text-black p-2 rounded-lg w-fit max-w-xs ml-2"
+                }
+              >
+                <strong>{msg.sender === "user" ? "You" : `${product.name}`}:</strong>{" "}
+                {msg.isTyping ? (
+                  <span className="animate-pulse text-gray-500">Typing...</span>
+                ) : (
+                  msg.text
+                )}
+              </div>
             ))}
+
             <div ref={chatRef} />
 
           </div>

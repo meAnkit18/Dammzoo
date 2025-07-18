@@ -6,6 +6,7 @@ import axios from 'axios'
 
 function Admin() {
     const [form,setForm] = useState({name:"",imgl:"",bio:"",nature:""});
+      const backendURL = import.meta.env.VITE_BACKEND_PORT
 
 
     const handleChage = (e)=>{
@@ -15,7 +16,7 @@ function Admin() {
     const handleSubmit = async(e)=>{
         e.preventDefault()
         try {
-            const res = await axios.post('http://localhost:5000/api/add/admin',form)
+            const res = await axios.post(`${backendURL}/api/add/admin`,form)
             alert("Added Sucessfully")
             
         } catch (error) {

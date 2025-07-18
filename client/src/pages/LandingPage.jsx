@@ -14,6 +14,8 @@ import Testimonal from '../components/Testimonal'
 function LandingPage() {
   return (
     <>
+    <div className='scroll-smooth'>
+
     <NavBar/>
     <HeroSection/>
     <br />
@@ -24,6 +26,7 @@ function LandingPage() {
     <CallToAction/>
     <br />
     <Footer/>
+    </div>
     
     
     </>

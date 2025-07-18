@@ -2,31 +2,36 @@ import React from 'react'
 
 function Testimonal() {
       const cardsData = [
-        {
-            image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
-            name: 'Briar Martin',
-            handle: '@neilstellar',
-            date: 'April 20, 2025'
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
-            date: 'May 10, 2025'
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
-            name: 'Jordan Lee',
-            handle: '@jordantalks',
-            date: 'June 5, 2025'
-        },
-        {
-            image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
-            name: 'Avery Johnson',
-            handle: '@averywrites',
-            date: 'May 10, 2025'
-        },
-    ];
+    {
+        image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
+        name: 'Briar Martin',
+        handle: '@neilstellar',
+        date: 'April 20, 2025',
+        twit: "Just had a real convo with someone on Dammzoo and forgot they weren’t even real. This thing’s wild. 🔥 #AIchat #Dammzoo"
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
+        name: 'Avery Johnson',
+        handle: '@averywrites',
+        date: 'May 10, 2025',
+        twit: "I went to Dammzoo to kill 10 mins… ended up chatting for 2 hours. These characters are way too relatable. 😂🧠 #DammzooVibes"
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=200&auto=format&fit=crop&q=60',
+        name: 'Jordan Lee',
+        handle: '@jordantalks',
+        date: 'June 5, 2025',
+        twit: "Felt low. Opened Dammzoo. Spoke to someone who actually got it. No advice, just vibes. Thank you. 🙏 #MentalHealthSupport #Dammzoo"
+    },
+    {
+        image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=200&auto=format&fit=crop&q=60',
+        name: 'Avery Johnson',
+        handle: '@averywrites',
+        date: 'May 10, 2025',
+        twit: "Back again on Dammzoo. This time I met the most chaotic, funny character ever. I needed that laugh today. 💀😂 #ChatLife #Dammzoo"
+    },
+];
+
 
     const CreateCard = ({ card }) => (
         <div className="p-4 rounded-lg mx-4 shadow hover:shadow-lg transition-all duration-200 w-72 shrink-0">
@@ -42,8 +47,7 @@ function Testimonal() {
                     <span className="text-xs text-slate-500">{card.handle}</span>
                 </div>
             </div>
-            <p className="text-sm py-4 text-gray-800">Radiant made undercutting all of our competitors an absolute
-                breeze.</p>
+            <p className="text-sm py-4 text-gray-800">{card.twit}</p>
             <div className="flex items-center justify-between text-slate-500 text-xs">
                 <div className="flex items-center gap-1">
                     <span>Posted on</span>
@@ -73,6 +77,7 @@ function Testimonal() {
                 animation-direction: reverse;
             }
         `}</style>
+            <div id='reviews' className='scroll-mt-20'>
 
             <div className="marquee-row w-full mx-auto max-w-5xl overflow-hidden relative">
                 <div className="absolute left-0 top-0 h-full w-20 z-10 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
@@ -92,6 +97,7 @@ function Testimonal() {
                     ))}
                 </div>
                 <div className="absolute right-0 top-0 h-full w-20 md:w-40 z-10 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+            </div>
             </div>
         </>
   )

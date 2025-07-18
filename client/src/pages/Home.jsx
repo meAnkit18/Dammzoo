@@ -14,7 +14,8 @@ function Home() {
   const [loading, setLoading] = useState(true); 
   const [isAuthenticated, setIsAuthenticated] = useState(true); 
   const [product, setProduct] = useState(null);
-  const [searchTerm, setSearchTerm] = useState("");  // ✅ search term state
+  const [searchTerm, setSearchTerm] = useState("");
+    const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ function Home() {
 
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/add/fetchchar", {
+        const res = await axios.get(`${backendURL}/api/add/fetchchar`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPosts(res.data);
@@ -56,18 +57,18 @@ function Home() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/add/connect",
+        `${backendURL}/api/add/connect`,
         { characterId },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
 
-      const spRes = await axios.get(`http://localhost:5000/api/add/${characterId}`);
+      const spRes = await axios.get(`${backendURL}/api/add/${characterId}`);
       const productData = spRes.data;
       setProduct(productData);
 
-      const userDeti = await axios.get("http://localhost:5000/api/auth/account", {
+      const userDeti = await axios.get(`${backendURL}/api/auth/account`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const userData = userDeti.data;
@@ -81,7 +82,7 @@ function Home() {
       };
 
       await axios.post(
-        "http://localhost:5000/api/add/chathistory",
+        `${backendURL}/api/add/chathistory`,
         { email, characterId, objChat },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -116,7 +117,7 @@ function Home() {
 
 
         <div className="mx-1 w-full max-w-2xl mt-15">
-          <div className="flex items-center mx-2.5 border pl-3 gap-2 bg-white border-gray-500/30 h-[46px] rounded-md overflow-hidden">
+          <div className="flex items-center mx-2.5 border pl-3 gap-0 bg-white border-gray-500/30 h-[46px] rounded-md overflow-hidden">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 30 30" fill="#6B7280">
               <path d="..." />
             </svg>
@@ -143,30 +144,24 @@ function Home() {
                   
         </div>
 
-         <div className="flex flex-wrap justify-center gap-12 mt-7">
-            <div className="relative border-[3px] border-blue-500 rounded-lg">
-                <img className="h-20 w-20 rounded"
+          <div className="flex flex-wrap justify-center gap-12 mt-3">
+            <div className="relative">
+                <img className="h-20 w-20 rounded-full"
                     src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200"
                     alt="userImage1" />
-                <div className="absolute -top-3 -right-2 flex items-center justify-center h-5 w-10 bg-blue-500 rounded-full">
-                    <p className="text-white text-xs uppercase">New</p>
-                </div>
+                <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
             </div>
-            <div className="relative border-[3px] border-red-500 rounded-lg">
-                <img className="h-20 w-20 rounded"
+            <div className="relative">
+                <img className="h-20 w-20 rounded-full"
                     src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
                     alt="userImage2" />
-                <div className="absolute -top-3 -right-2 flex items-center justify-center h-5 w-10 bg-red-500 rounded-full">
-                    <p className="text-white text-xs uppercase">New</p>
-                </div>
+                <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-red-500"></div>
             </div>
-            <div className="relative border-[3px] border-yellow-500 rounded-lg">
-                <img className="h-20 w-20 rounded"
+            <div className="relative">
+                <img className="h-20 w-20 rounded-full"
                     src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
                     alt="userImage3" />
-                <div className="absolute -top-3 -right-2 flex items-center justify-center h-5 w-10 bg-yellow-500 rounded-full">
-                    <p className="text-white text-xs uppercase">New</p>
-                </div>
+                <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-yellow-500"></div>
             </div>
         </div>
 

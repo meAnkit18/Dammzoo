@@ -6,9 +6,10 @@ import { motion } from 'framer-motion';
 function ChatCard({prop}) {
   const id = prop;
    const [product, setProduct] = useState(null);
+    const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/add/${id}`)
+    axios.get(`${backendURL}/api/add/${id}`)
       .then(res => setProduct(res.data) 
       )
       .catch(err => console.error(err));
@@ -26,7 +27,12 @@ function ChatCard({prop}) {
             <div className="relative">
                 <img className="h-15 w-15 rounded-full"
                     src={product.imgl}
-                    alt="userImage" />
+                    alt="userImage"
+                    onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loop in case fallback also fails
+                        e.target.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWHVaY-wRjLvQDY-FhyphenhyphenPKYH9Gb1Kz9nUz2Bu4zeEpRXDCfjBE7jyANtu_ZOxpzZD6tMoG3H62XDO5IrYZhPqBn3E0nnuD6IRvA6AcdNHHNsN3h_A6FsU0s4D7XSi8NzxIi50CHKrk_p4xVT1K4fgyDhIp1b9RycsVAd7-KrmbzXCzdcA7D2CDf3eocDwQ/s512/profile-user.png'; // Your fallback image path
+                    }}
+                    />
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
             </div>
         </div>

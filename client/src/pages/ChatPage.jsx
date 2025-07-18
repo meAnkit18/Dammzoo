@@ -14,6 +14,7 @@ function ChatPage() {
 
    const [user, setUser] = useState([]);
    const navigate = useNavigate()
+     const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,7 +27,7 @@ function ChatPage() {
       }
 
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/account", {
+        const res = await axios.get(`${backendURL}/api/auth/account`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -45,10 +46,10 @@ function ChatPage() {
   if (!user) return <p>Loading user info...</p>;
   return (
     <>
-    <MainName/>
     <div 
     className="flex mt-15 flex-col items-center min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/gradientBackground.png')] bg-cover bg-center text-gray-800 text-sm font-[Poppins]"
     >
+      <MainName/>
       <div className='flex items-center'>
         <div  onClick={()=>navigate('/home')}>
           <svg

@@ -21,7 +21,16 @@ function Card({post,onConnect }) {
             )}
 
             <div className="relative z-10 bg-gradient-to-r from-[#ebf9ff] to-[#ffeefd] p-6 h-full w-full rounded-[10px] flex flex-col items-center justify-center text-center">
-                <img src={post.imgl} alt="Profile Avatar" className="w-44 h-44 rounded-full shadow-md my-4" />
+                {/* <img src={post.imgl} alt="Profile Avatar" className="w-44 h-44 rounded-full shadow-md my-4" /> */}
+                <img
+                    src={post.imgl}
+                    alt="Profile Avatar"
+                    className="w-44 h-44 rounded-full shadow-md my-4"
+                    onError={(e) => {
+                        e.target.onerror = null; // Prevent infinite loop in case fallback also fails
+                        e.target.src = 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWHVaY-wRjLvQDY-FhyphenhyphenPKYH9Gb1Kz9nUz2Bu4zeEpRXDCfjBE7jyANtu_ZOxpzZD6tMoG3H62XDO5IrYZhPqBn3E0nnuD6IRvA6AcdNHHNsN3h_A6FsU0s4D7XSi8NzxIi50CHKrk_p4xVT1K4fgyDhIp1b9RycsVAd7-KrmbzXCzdcA7D2CDf3eocDwQ/s512/profile-user.png'; // Your fallback image path
+                    }}
+                    />
                 <h2 className="text-1xl font-semibold text-gray-800 mb-1">{post.name}</h2>
                 <p className="text-sm text-indigo-500 font-medium mb-4">{post.bio}</p>
                 {/* <p className="text-sm text-gray-500 mb-4 px-4">
