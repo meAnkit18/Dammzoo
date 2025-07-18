@@ -14,7 +14,7 @@ function NavBar() {
     >
       <header 
       className="fixed top-1 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl bg-white/30 backdrop-blur-md shadow-lg z-50 px-6  flex items-center justify-between px-6 py-3 md:py-4 shadow max-w-5xl rounded-full mx-auto w-full bg-white">
-    <a href={frontendURL}>
+    <a href='https://dammzoo.vercel.app/'>
         {/* <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/prebuiltuiDummyLogo.svg" /> */}
         <div className="flex items-center justify-center gap-2 ">
     <img
@@ -26,7 +26,7 @@ function NavBar() {
   </div>
     </a>
     <nav id="menu" class="max-md:absolute max-md:top-0 max-md:left-0 max-md:overflow-hidden items-center justify-center max-md:h-full max-md:w-0 transition-[width] flex-col md:flex-row flex gap-8 text-gray-900 text-sm font-normal">
-        <a class="hover:text-indigo-600" href={frontendURL}>
+        <a class="hover:text-indigo-600" href="#">
             Home
         </a>
         <a class="hover:text-indigo-600" href="#reviews">
