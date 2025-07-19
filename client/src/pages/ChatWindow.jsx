@@ -331,12 +331,12 @@ const sendMessage = async () => {
 
         </div>
        <div className="flex fixed bottom-1 items-center h-12 w-full max-w-3xl text-sm text-gray-500 bg-white border border-gray-500/30 rounded">
-            {/* <button type="button" className="h-full px-3">
+            <button type="button" className="h-full px-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                     <circle cx="12" cy="12" r="10"/>
                     <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
                 </svg>
-            </button> */}
+            </button>
             <input className="outline-none bg-transparent h-full w-full" type="text" placeholder="Message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
