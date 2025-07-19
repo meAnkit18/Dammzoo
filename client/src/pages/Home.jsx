@@ -176,7 +176,7 @@ function Home() {
           post.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           post.bio.toLowerCase().includes(searchTerm.toLowerCase())
         )
-        .map((post) => (
+        .reverse().map((post) => (
           <Card key={post.id} post={post} onConnect={handleConnect}/>
         ))}
     </div>

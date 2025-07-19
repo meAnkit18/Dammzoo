@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import addCharmin from './routes/addCharmin.js'
 import chatRoutes from './routes/chatRoutes.js'
+import uploadRouter from './routes/uploadRouter.js'
 
 
 
@@ -21,6 +22,7 @@ app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/add',addCharmin)
 app.use('/api/chatroutes',chatRoutes)
+app.use('/api/upload',uploadRouter)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
