@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import LoadingComp from '../components/LoadingComp';
 
 function ChatWindow() {
   const [messages, setMessages] = useState([]);
@@ -242,7 +243,7 @@ const sendMessage = async () => {
 
 
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <LoadingComp/>;
 
   return (
     <div className="flex justify-center h-screen">
