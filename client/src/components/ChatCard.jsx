@@ -2,6 +2,7 @@ import React from 'react'
 import { useState,useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import LoadingComp from './LoadingComp';
 
 function ChatCard({prop}) {
   const id = prop;
@@ -15,7 +16,7 @@ function ChatCard({prop}) {
       .catch(err => console.error(err));
   }, [id]);
 
-  if (!product) return <p>Loading...</p>;
+  if (!product) return <LoadingComp/>;
 
   return (
     <motion.div 
