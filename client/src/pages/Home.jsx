@@ -6,6 +6,7 @@ import { useAppContext } from "../context/AppContext";
 import Footer from "../components/Footer";
 import MainName from "../components/MainName";
 import { motion } from "framer-motion";
+import LoadingComp from "../components/LoadingComp";
 
 
 function Home() {
@@ -48,7 +49,7 @@ function Home() {
     window.location.href = "/login";
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingComp/>;
 
   if (!isAuthenticated) return <p>You are not logged in.</p>;
 
@@ -118,6 +119,15 @@ function Home() {
 
         <div className="mx-1 w-full max-w-2xl mt-15">
           <div className="flex items-center mx-2.5 border pl-3 gap-0 bg-white border-gray-500/30 h-[46px] rounded-md overflow-hidden">
+            <div
+            onClick={()=> navigate('/admin')}
+            >
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+            </svg>
+
+            </div>
+
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 30 30" fill="#6B7280">
               <path d="..." />
             </svg>
