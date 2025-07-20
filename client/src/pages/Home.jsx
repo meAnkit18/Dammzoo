@@ -122,9 +122,14 @@ function Home() {
             <div
             onClick={()=> navigate('/admin')}
             >
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <motion.svg
+             initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2,type: "spring", stiffness: 300 }}
+              whileHover={{ scale: 1.5 }}
+            class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-            </svg>
+            </motion.svg>
 
             </div>
 
@@ -155,24 +160,38 @@ function Home() {
         </div>
 
           <div className="flex flex-wrap justify-center gap-12 mt-3">
-            <div className="relative">
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+            
+            className="relative"
+            onClick={()=> setSearchTerm('Dr. Ishita Rao')}
+            >
                 <img className="h-20 w-20 rounded-full"
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200"
+                    src="https://res.cloudinary.com/dxnc59yv9/image/upload/v1752996957/gkistbg8khlognvjztqf.png"
                     alt="userImage1" />
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-green-500"></div>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+            className="relative"
+            onClick={()=> setSearchTerm('Orion Vega')}
+            >
                 <img className="h-20 w-20 rounded-full"
-                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200"
+                    src="https://res.cloudinary.com/dxnc59yv9/image/upload/v1752996413/nilfhe69in2skxdt2sud.png"
                     alt="userImage2" />
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-red-500"></div>
-            </div>
-            <div className="relative">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+            
+            className="relative"
+            onClick={()=> setSearchTerm('Shradha')}
+            >
                 <img className="h-20 w-20 rounded-full"
-                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&h=200&auto=format&fit=crop"
+                    src="https://res.cloudinary.com/dxnc59yv9/image/upload/v1752998530/zfzwvwnnzuwxn12rsct3.png"
                     alt="userImage3" />
                 <div className="absolute bottom-2 right-0 h-3.5 w-3.5 rounded-full bg-yellow-500"></div>
-            </div>
+            </motion.div>
         </div>
 
 
