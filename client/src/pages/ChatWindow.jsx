@@ -282,7 +282,7 @@ const sendMessage = async () => {
             </div>
             <div className='ml-10 p-1'>
             <h1 className='text-base font-semibold text-center '>{product.name}</h1>
-            <p className='text-gray-500'>{product.bio}</p>
+            {/* <p className='text-gray-500'>{product.bio}</p> */}
 
             </div>
           </motion.div>
