@@ -228,7 +228,7 @@ const sendMessage = async () => {
     console.error("Gemini API error:", error);
     const errorReply = {
       sender: `${product.name}`,
-      text: "Oops 😓 Something went wrong while thinking.",
+      text: "I will text you later",
     };
     setMessages((prev) => {
       const filtered = prev.filter((msg) => !msg.isTyping);

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import LoadingComp from '../components/LoadingComp';
 
 const Login = () => {
 
@@ -9,12 +10,15 @@ const Login = () => {
   const [otp, setOtp] = useState('')
   const [step, setStep] = useState(1)
   const navigate = useNavigate()
+  const[load,setLoad] = useState(false)
   const backendURL = import.meta.env.VITE_BACKEND_PORT
 
   const sendOtp = async () => {
     try {
+      setLoad(true)
       await axios.post(`${backendURL}/api/auth/send-otp`, { email })
       setStep(2)
+      setLoad(false)
     } catch (error) {
       alert("Failed to send OTP")
       console.error(error)
@@ -23,13 +27,13 @@ const Login = () => {
 
   const verifyOtp = async () => {
     try {
+      setLoad(true)
       const res = await axios.post(`${backendURL}/api/auth/verify-otp`, {email, otp })
       const token = res.data.token;
       localStorage.setItem("token", token);
       
       navigate('/home')
-      alert(res.data.message)
-      // TODO: Save token or redirect
+      setLoad(false)
     } catch (error) {
       alert("OTP verification failed")
       console.error(error)
@@ -55,6 +59,12 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               />
+              {
+                load &&(
+                  <LoadingComp/>
+                )
+              }
+              
             <button type="button"
              className="w-full my-3 bg-gray-800 active:scale-95 transition py-2.5 rounded text-white"
              onClick={sendOtp}
@@ -78,6 +88,11 @@ const Login = () => {
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
               />
+              {
+                load &&(
+                  <LoadingComp/>
+                )
+              }
             <button type="button"
              className="w-full my-3 bg-gray-800 active:scale-95 transition py-2.5 rounded text-white"
              onClick={verifyOtp}
