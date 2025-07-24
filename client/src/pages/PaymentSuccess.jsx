@@ -37,4 +37,3 @@ function PaymentSuccess() {
 }
 
 export default PaymentSuccess
-//fixed
