@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 .env
+Test.jsx
+TestComponent.jsx
 dist-ssr
 *.local
 
