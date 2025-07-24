@@ -7,7 +7,6 @@ import AccoutDetails from './pages/AccoutDetails'
 import ChatPage from './pages/ChatPage'
 import ChatWindow from './pages/ChatWindow'
 import PageNotFound from './pages/PageNotFound'
-import Test from './pages/Test'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
 import DMCAPage from './pages/DMCAPage'
@@ -28,7 +27,6 @@ function App() {
       <Route path="/chat" element={<ChatPage />} />
       <Route path="/chat/:id" element={<ChatWindow />} />
       <Route path="/*" element={<PageNotFound />} />
-      <Route path="/test" element={<Test />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/dmca" element={<DMCAPage />} />
