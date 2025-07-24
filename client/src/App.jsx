@@ -13,7 +13,7 @@ import ContactPage from './pages/ContactPage'
 import DMCAPage from './pages/DMCAPage'
 import ServicesPage from './pages/ServicesPage'
 import DisclaimerPage from './pages/DisclaimerPage'
-import PaymentSuccess from './pages/PaymentSucess'
+
 
 function App() {
 
@@ -34,7 +34,6 @@ function App() {
       <Route path="/dmca" element={<DMCAPage />} />
       <Route path="/services" element={<ServicesPage />} />
       <Route path="/disclaimer" element={<DisclaimerPage />} />
-      <Route path="/paymentSuccess" element={<PaymentSuccess />} />
 
     </Routes> 
   )
