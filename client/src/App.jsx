@@ -13,7 +13,7 @@ import ContactPage from './pages/ContactPage'
 import DMCAPage from './pages/DMCAPage'
 import ServicesPage from './pages/ServicesPage'
 import DisclaimerPage from './pages/DisclaimerPage'
-import PaymentSuccess from './pages/paymentSuccess'
+import PaymentSuccess from './pages/PaymentSuccess'
 
 function App() {
 
