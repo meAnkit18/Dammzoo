@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 
 
 
-function PaymentSuccess() {
+function PaymentSucess() {
 
     const query = new URLSearchParams(useLocation().search)
     const reference = query.get("refernce")
@@ -36,4 +36,4 @@ function PaymentSuccess() {
   )
 }
 
-export default PaymentSuccess
+export default PaymentSucess
