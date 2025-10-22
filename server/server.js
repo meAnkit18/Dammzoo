@@ -8,6 +8,8 @@ import chatRoutes from './routes/chatRoutes.js'
 import uploadRouter from './routes/uploadRouter.js'
 import Razorpay from 'razorpay'
 import paymentRouter from './routes/paymetRouter.js'
+import passport from 'passport';
+import './config/passport-setup.js';
 
 
 dotenv.config()
@@ -20,6 +22,7 @@ export const instance = new Razorpay({
   key_id:process.env.RKEY_ID,
   key_secret:process.env.RKEY_SECRET
 })
+app.use(passport.initialize());
 
 app.use(cors())
 app.use(express.json())
@@ -31,6 +34,7 @@ app.use('/api/add',addCharmin)
 app.use('/api/chatroutes',chatRoutes)
 app.use('/api/upload',uploadRouter)
 app.use('/api/payment',paymentRouter)
+app.use('/api/auth', authRoutes)
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
