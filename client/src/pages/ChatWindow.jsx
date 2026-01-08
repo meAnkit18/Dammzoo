@@ -198,7 +198,7 @@ const sendMessage = async () => {
 
   try {
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${api}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${api}`,
       { contents: formattedMessages },
       { headers: { "Content-Type": "application/json" } }
     );
